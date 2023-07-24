@@ -1,0 +1,54 @@
+.batun
+{
+    background: #13257f;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    font-size:14px;
+    font-weight: bold;
+}
+
+.a-c
+{
+    align-items: center;
+}
+
+.lista
+{
+        border: 1px solid #b9aeae;
+    margin: 10px 0px;
+    padding: 10px;
+
+}
+
+.slika{
+
+    width: 100px;
+    height: 100px;
+}
+.ime
+{
+    font-size: 48px;
+    margin: 0 30px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    justify-content: center;
+}
+.nema
+{
+        
+   
+    justify-content: center;
+    flex-direction: column;
+ 
+    top: 50%;
+   
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    min-height: 100vh;
+
+}
