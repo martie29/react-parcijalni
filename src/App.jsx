@@ -1,29 +1,33 @@
 
 import './App.css'
-import { GithubProvider } from './context/GithubContext'
+
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 import {Routes,Route,BrowserRouter as Router} from "react-router-dom"
 import User from './pages/User'
+import { useState } from 'react'
 
 
 
 function App() {
   
 
+  const [users,setUsers]=useState([])
+  const [user,setUser]=useState([])
+  const [repos,setRepos]=useState([])
+
   return (
 
-   <GithubProvider>
     <Router>
       
     <Routes>
-    <Route path="/" exact element={<Home />}/>
-    <Route path="/user/:login" exact element={<User />}/>
-    <Route path="/*" element={<NotFound />}/>
+    <Route path="/" exact element={<Home users={users} setUsers={setUsers} user={user} setUser={setUser} repos={repos} setRepos={setRepos}/>}/>
+    <Route path="/user/:login" exact element={<User users={users} setUsers={setUsers} user={user} setUser={setUser} repos={repos} setRepos={setRepos}/>}/>
+    <Route path="/*" element={<NotFound setUser={setUser}/>}/>
     </Routes>
 
     </Router>
-    </GithubProvider>
+    
   
   )
 }

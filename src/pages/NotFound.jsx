@@ -1,15 +1,18 @@
-import React, { useContext, useEffect } from "react";
-import GithubContext from "../context/GithubContext";
-import { Link, useParams } from "react-router-dom";
-import RepoList from "../components/RepoList";
 
 
-function NotFound() {
-  const {  clearUsers } = useContext(GithubContext);
+
+function NotFound({setUser}) {
+
+  const clearUser = () =>{
+
+       setUser({});
+       window.location.href = "/";
+    }
+ 
   return (
     <div className='nema'>
     <div>Stranica nije pronađena ili user s takvim usernameom ne postoji</div>
-    <button className="batun" onClick={clearUsers}>Resetiraj</button>
+    <button className="batun" onClick={clearUser}>Resetiraj</button>
     </div>
   )
 }

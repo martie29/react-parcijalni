@@ -1,11 +1,11 @@
 import React from 'react'
-import IspisUsera from '../components/IspisUsera'
+
 import UserSearch from "../components/UserSearch"
-function Home() {
+function Home({users,setUsers,user,setUser}) {
   return (
     <>
-    <UserSearch />
-    <IspisUsera />
+    <UserSearch users={users} setUsers={setUsers} user={user} setUser={setUser}/>
+   
     </>
   )
 }

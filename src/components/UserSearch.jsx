@@ -1,22 +1,38 @@
 import React, { useContext, useState } from "react";
-import GithubContext from "../context/GithubContext";
+import { useNavigate } from 'react-router-dom';
 
-function UserSearch() {
-  const { users, fetchUsers, clearUsers } = useContext(GithubContext);
+function UserSearch({users,setUsers}) {
+ 
 
   const [text, setText] = useState("");
   const handleChange = (event) => {
     setText(event.target.value);
   };
+   const navigate=useNavigate();
+
+   const  fetchUsers = async (text) =>
+{
+    
+    const response = await fetch(`https://api.github.com/users/${text}`);
+    const data= await response.json();
+
+    setUsers(data);
+
+}
+
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (text == "") {
-      alert("Unesite nešto u pretragu");
+      alert("Ništa niste unijeli.");
     } else {
       
       fetchUsers(text);
       setText("");
+     
+
+
     }
   };
 
@@ -38,11 +54,10 @@ function UserSearch() {
           
         </form>
       </div>
-      {users.length > 0 && (
-        <div className="flex justify-center lg:justify-start">
-          <button onClick={clearUsers}>Resetiraj</button>
-        </div>
-      )}
+    {Object.keys(users).length > 0 && (
+
+      navigate(`/user/${users.login}`))
+ }
     </div>
   );
 }

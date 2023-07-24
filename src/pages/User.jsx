@@ -1,28 +1,51 @@
 import React, { useContext, useEffect } from "react";
-import GithubContext from "../context/GithubContext";
 import { Link, useParams } from "react-router-dom";
 import RepoList from "../components/RepoList";
 import NotFound from "./NotFound";
 
 
-function User() {
-  const { user, getUser, loading, getRepos, repos,clearUsers } = useContext(GithubContext);
+function User({ user, repos,setRepos,setUser }) {
+
   const { name, avatar_url, bio, login,location,message } = user;
+
+
+  const getUser = async (login) =>
+    {
+
+        
+        const response = await fetch(`https://api.github.com/users/${login}`);
+        const data = await response.json();
+       setUser(data);
+    }
+
+    const getRepos = async (login) =>{
+        
+
+         const response = await fetch(`https://api.github.com/users/${login}/repos`);
+        const data = await response.json();
+        setRepos(data)
+
+    }
+
   const params = useParams();
   useEffect(() => {
     getUser(params.login);
     getRepos(params.login);
   }, []);
 
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
+  
+const clearUsers = () =>{
+
+       setUser([])
+       window.location.href = "/";
+    }
+
   return (
     <>
        {message!=='Not Found' ? (<div className="w-full mx-auto lg:w-10/12">
         <div className="mb-4">
         </div>
-        <div className="grid grid-cols-1  mb-8 gap-8">
+        <div className="grid grid-cols-1 mb-8 gap-8">
           <div className="custom-card-image mb-6 md:mb-0 flex">
             <div className="rounded-lg shedow-xl card">
               <figure>
@@ -41,7 +64,7 @@ function User() {
               <div className="flex justify-center  batun">
           <button onClick={clearUsers} >RESET</button>
         </div>
-      </div>) : <NotFound />
+      </div>) : <NotFound setUser={setUser}/>
   }
     </>
   );
